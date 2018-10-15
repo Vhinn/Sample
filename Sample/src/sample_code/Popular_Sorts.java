@@ -35,6 +35,13 @@ public class Popular_Sorts {
 	
 	public static void main(String[] args) {
 		
+		//Checks if there is a valid argument
+		if(args.length == 0) {
+			System.out.println("Please enter the path of the file!!");
+			System.out.println("Terminating..");
+			System.exit(-1);
+		}
+		
 		/*
 		 * Calculate runtime for reading input size
 		 */
@@ -42,13 +49,14 @@ public class Popular_Sorts {
 		long beforeRead = System.nanoTime();
 		
 		//If path is given via command line, we would just take it from args and place it into the paremeter here
-		Integer[] array = readWholeInput("<DIRECTORY PATH OF THE INPUT FILE GOES HERE>");
+		Integer[] array = readWholeInput(args[0]);
 		//The method of input can be tweaked to adjust for needs, but there was no initial specification
 		
 		
 		long afterRead = System.nanoTime();
 		
 		long readElapsed = afterRead - beforeRead;
+		System.out.println("==========================================");
 		System.out.println("File read time in: " + readElapsed + "ns.");
 
 		/*
@@ -60,9 +68,9 @@ public class Popular_Sorts {
 		
 		long afterCount = System.nanoTime();
 		long countElapsed = afterCount - beforeCount;
-		
+		System.out.println("==========================================");
 		System.out.println("Count sorted in: " + countElapsed + "ns.");
-		
+		System.out.println("");
 		printArray(cSorted);
 		
 		/*
@@ -75,8 +83,9 @@ public class Popular_Sorts {
 		long afterQuick = System.nanoTime();
 		long quickElapsed = afterQuick - beforeQuick;
 		
+		System.out.println("==========================================");
 		System.out.println("Quick sorted in: " + quickElapsed + "ns.");
-		
+		System.out.println("");
 		printArray(array);
 	}
 	
@@ -113,7 +122,12 @@ public class Popular_Sorts {
 		} catch (IOException e) {
 			//In case of error, print out stack trace to perhaps see the cause
 			e.printStackTrace();
+			System.out.println("==========================================");
 			System.out.println("Something went wrong reading the file!");
+			System.out.println("Perhaps the path was incorrect?");
+			System.out.println("Terminating..");
+			System.out.println("==========================================");
+			System.exit(-1);
 		}
 		
 		Integer[] arrayOfInt = new Integer[listOfContents.size()];
